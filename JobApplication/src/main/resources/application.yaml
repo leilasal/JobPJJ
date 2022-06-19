@@ -1,0 +1,70 @@
+server:
+  port: 8080
+
+  servlet:
+    context-path: /apply
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  config:
+    import: parameters.yaml
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+  jpa:
+    show-sql: true
+    properties.hibernate:
+      format_sql: true
+      use_sql_comments: true
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:db/schema.sql, classpath:db/data.sql
+
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:applieds;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  jackson:
+    visibility:
+      field: any
+      getter: none
+      setter: none
+      is-getter: none
+
+ 
+logging:
+  charset:
+    console: "UTF-8"
+    file: "UTF-8"
+
+  level:
+    root: WARN
+    org.category.apply: DEBUG
+    org.springframework: INFO
+
+  pattern:
+    console: "%clr(%d{HH:mm:ss.SSS}){faint} %clr(%-5level){highlight} %clr([%15.15t]){magenta} %clr(%-40.40logger{0}){cyan} %clr(:){faint} %clr(%msg%n){highlight}"
+    file: "%d{HH:mm:ss.SSS} %-5level [%15.15t] %-40.40logger{0} : %msg%n"
+
+  file:
+    name: logs/apply_sys.log
+  logback:
+    rollingpolicy:
+      max-history: 1
+    
